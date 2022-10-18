@@ -11,6 +11,7 @@ import SwiftUI
 class LoginView: ObservableObject {
     
     @Published var data: LoginResponse = LoginResponse(refresh: "", access: "")
+    @Published var access: String = ""
     
     func fetch(username: String, password:String){
     
@@ -31,7 +32,9 @@ class LoginView: ObservableObject {
                         let login = try JSONDecoder().decode(LoginResponse.self, from: data)
                         DispatchQueue.main.async {
                             self?.data = login
-                            print(login)
+                            self?.access = String(login.access)
+                            print(self?.access)
+                            
                         }
                     }catch{
                         print(error)
